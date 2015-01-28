@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src='snap.svg-min.js'></script>
+  <style>
+    #lefthand,#righthand,#leftfoot,#rightfoot,#belly,#mouth,#head,#eye{
+      cursor: pointer;
+    }
+    .content{
+      font-size: 35px;
+      position: relative;
+      left: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id='main'>
+    <span class='content'>asfasff</span>
+    <div id="mysvg"></div>
+  </div>
+  <script>
+    window.onload = function () {
+      $.get("test3.svg", null, function(data)
+        {
+          var svgNode = $("svg", data);
+          var docNode = document.adoptNode(svgNode[0]);
+          var pageNode = $("#mysvg");
+          pageNode.html(docNode);
+          var s = Snap("#mysvg");
+          var content = $('.content');
+          s.select("#lefthand").click(function () {
+            content.text('lefthand');
+          s.select("#righthand").click(function () {
+            content.text('righthand');
+          });
+          s.select("#leftfoot").click(function () {
+              content.text('leftfoot');
+          });
+          s.select("#rightfoot").click(function () {
+              content.text('rightfoot');
+          });
+          s.select("#belly").click(function () {
+              content.text('belly');
+          });
+          s.select("#mouth").click(function () {
+              content.text('mouth');
+          });
+          s.select("#head").click(function () {
+              content.text('head');
+          });
+          s.select("#eye").click(function () {
+              content.text('eye');
+          });
+        });
+      },'xml');
+    }
+  </script>
+  
+</body>
+</html>
