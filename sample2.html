@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src='snap.svg-min.js'></script>
+  <style>
+    .left-wrap{
+      position: relative;
+      float: left;
+    }
+    #pain-location{
+      width: 300px;
+    }
+    #init{
+      color: red;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id='main'>
+    <div class="left-wrap">
+      <label for="">疼痛部位:</label>
+      <input type="text" id='pain-location'><br>
+      <span id='init'>已經點選過了!!</span>
+    </div>
+    <div id="mysvg"></div>
+  </div>
+  <script>
+    window.onload = function () {
+      $.get("body2.svg", null, function(data)
+        {
+          var svgNode = $("svg", data);
+          var docNode = document.adoptNode(svgNode[0]);
+          var pageNode = $("#mysvg");
+          pageNode.html(docNode);
+          var s = Snap("#mysvg");
+          var inputArr = [];
+          var str = '';
+          $('path').css({'cursor': 'pointer'});
+          s.selectAll("path").forEach(function(e){
+            e.click(function (message) {
+              str = '';
+              if( inputArr.indexOf(message.target.children[0].textContent) >= 0 ){
+                $('#init').show();
+                return;
+              }else{
+                $('#init').hide();
+              }
+              inputArr.push(message.target.children[0].textContent);
+              for(var i = 0; i < inputArr.length; i++){
+                str = str + inputArr[i] + ',';
+              }
+              $('#pain-location').val(str.slice(0,str.length - 1));
+            });
+          })
+      },'xml');
+    }
+  </script>
+  
+</body>
+</html>

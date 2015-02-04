@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src='snap.svg-min.js'></script>
+  <style>
+    .left-wrap{
+      position: relative;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div id='main'>
+    <div class="left-wrap">
+      <label for="">壓瘡部位:</label>
+      <input type="text" id='ps1'><br>
+      <label for="">壓瘡部位:</label>
+      <input type="text" id='ps2'><br>
+      <label for="">壓瘡部位:</label>
+      <input type="text" id='ps3'>
+    </div>
+    <div id="mysvg"></div>
+  </div>
+  <script>
+    window.onload = function () {
+      $.get("ps_location1-horz.svg", null, function(data)
+        {
+          var svgNode = $("svg", data);
+          var docNode = document.adoptNode(svgNode[0]);
+          var pageNode = $("#mysvg");
+          pageNode.html(docNode);
+          var s = Snap("#mysvg");
+          var inputArr = [];
+          $('path').css({'cursor': 'pointer'});
+          s.selectAll("path").forEach(function(e){
+            e.click(function (message) {
+              inputArr.push(message.target.children[0].textContent);
+              if(inputArr.length > 3){
+                inputArr.shift();
+              }
+              for(var i = 0; i < inputArr.length; i++){
+                var index = i +1 ;
+                $('#ps' + index).val(inputArr[i]);
+              }
+            });
+          })
+      },'xml');
+    }
+  </script>
+  
+</body>
+</html>
