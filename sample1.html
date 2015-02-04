@@ -37,7 +37,14 @@
           $('path').css({'cursor': 'pointer'});
           s.selectAll("path").forEach(function(e){
             e.click(function (message) {
-              inputArr.push(message.target.children[0].textContent);
+              var contentText = '';
+              if( message.hasOwnProperty( message.target.children ) ){
+                contentText = message.target.children[0].textContent;
+              }
+              else{
+                contentText = message.target.childNodes[1].textContent;
+              }   
+              inputArr.push(contentText);
               if(inputArr.length > 3){
                 inputArr.shift();
               }

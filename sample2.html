@@ -42,14 +42,21 @@
           $('path').css({'cursor': 'pointer'});
           s.selectAll("path").forEach(function(e){
             e.click(function (message) {
+              var contentText = '';
               str = '';
-              if( inputArr.indexOf(message.target.children[0].textContent) >= 0 ){
+              if( message.hasOwnProperty( message.target.children ) ){
+                contentText = message.target.children[0].textContent;
+              }
+              else{
+                contentText = message.target.childNodes[1].textContent;
+              }         
+              if( inputArr.indexOf(contentText) >= 0 ){
                 $('#init').show();
                 return;
               }else{
                 $('#init').hide();
               }
-              inputArr.push(message.target.children[0].textContent);
+              inputArr.push(contentText);
               for(var i = 0; i < inputArr.length; i++){
                 str = str + inputArr[i] + ',';
               }
