@@ -32,7 +32,14 @@
           $('rect').css({'cursor': 'pointer'});
           s.selectAll("rect").forEach(function(e){
             e.click(function (message) {
-              $('#pain-level').val(message.target.children[0].textContent);
+              var contentText = '';
+              if( message.hasOwnProperty( message.target.children ) ){
+                contentText = message.target.children[0].textContent;
+              }
+              else{
+                contentText = message.target.childNodes[1].textContent;
+              }   
+              $('#pain-level').val(contentText);
             });
           })
       },'xml');
