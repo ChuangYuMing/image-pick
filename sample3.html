@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src='snap.svg-min.js'></script>
+  <style>
+    .left-wrap{
+      position: relative;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div id='main'>
+    <div class="left-wrap">
+      <label for="">疼痛表徵:</label>
+      <input type="text" id='pain-level'><br>
+    </div>
+    <div id="mysvg"></div>
+  </div>
+  <script>
+    window.onload = function () {
+      $.get("pain.svg", null, function(data)
+        {
+          var svgNode = $("svg", data);
+          var docNode = document.adoptNode(svgNode[0]);
+          var pageNode = $("#mysvg");
+          pageNode.html(docNode);
+          var s = Snap("#mysvg");
+          $('rect').css({'cursor': 'pointer'});
+          s.selectAll("rect").forEach(function(e){
+            e.click(function (message) {
+              $('#pain-level').val(message.target.children[0].textContent);
+            });
+          })
+      },'xml');
+    }
+  </script>
+  
+</body>
+</html>
