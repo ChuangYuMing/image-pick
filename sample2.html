@@ -39,6 +39,11 @@
           var s = Snap("#mysvg");
           var inputArr = [];
           var str = '';
+          $('input').change(function(){
+            if( $(this).val()=='' ){
+              inputArr = [];
+            }
+          })
           $('path').css({'cursor': 'pointer'});
           s.selectAll("path").forEach(function(e){
             e.click(function (message) {
