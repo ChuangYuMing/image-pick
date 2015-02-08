@@ -15,12 +15,36 @@
 <body>
   <div id='main'>
     <div class="left-wrap">
-      <label for="">壓瘡部位:</label>
-      <input type="text" id='ps1'><br>
-      <label for="">壓瘡部位:</label>
-      <input type="text" id='ps2'><br>
-      <label for="">壓瘡部位:</label>
-      <input type="text" id='ps3'>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps1">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps2">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps3">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps4">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps5">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps6">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps7">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps8">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps9">
+      <br>
+      <label for="">壓瘡部位</label>
+      <input type="text" id="ps10">
+      <br>
     </div>
     <div id="mysvg"></div>
   </div>
@@ -33,7 +57,11 @@
           var pageNode = $("#mysvg");
           pageNode.html(docNode);
           var s = Snap("#mysvg");
-          var inputArr = [];
+          // var inputArr = [];
+          var focused; 
+          $('input').focus(function(){
+            focused = $(this);
+          })
           $('path').css({'cursor': 'pointer'});
           s.selectAll("path").forEach(function(e){
             e.click(function (message) {
@@ -43,15 +71,22 @@
               }
               else{
                 contentText = message.target.childNodes[1].textContent;
-              }   
-              inputArr.push(contentText);
-              if(inputArr.length > 3){
-                inputArr.shift();
+              }  
+              if(focused){
+                focused.val(contentText);
               }
-              for(var i = 0; i < inputArr.length; i++){
-                var index = i +1 ;
-                $('#ps' + index).val(inputArr[i]);
+              else{
+                alert('please press textbox !! ');
               }
+              
+              // inputArr.push(contentText);
+              // if(inputArr.length > 3){
+              //   inputArr.shift();
+              // }
+              // for(var i = 0; i < inputArr.length; i++){
+              //   var index = i +1 ;
+              //   $('#ps' + index).val(inputArr[i]);
+              // }
             });
           })
       },'xml');
